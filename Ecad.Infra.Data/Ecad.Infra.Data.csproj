@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+   <ItemGroup>
+    <PackageReference Include="EFCore.BulkExtensions" Version="2.5.2" />
+    <PackageReference Include="Microsoft.AspNetCore.All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+  </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\Ecad.Domain.Model\Ecad.Domain.Model.csproj" />
+   </ItemGroup>
+
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+
+</Project>

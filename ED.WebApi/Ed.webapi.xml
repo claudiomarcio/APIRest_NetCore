@@ -1,0 +1,40 @@
+﻿<?xml version="1.0"?>
+<doc>
+	<assembly>
+		<name>Ed.WebApi</name>
+	</assembly>
+	<members>
+		<member name="M:WebApi.Controllers.MusicController.GetMusics">
+			<summary>
+				Obtem todas as musicas
+			</summary>
+			<returns>Objeto contendo musicas.</returns>
+		</member>
+		<member name="M:WebApi.Controllers.MusicController.GetGenders">
+			<summary>
+				Obtem todos os generos
+			</summary>
+			<returns>Objeto contendo generos.</returns>
+		</member>
+		<member name="M:WebApi.Controllers.MusicController.GetAuhtors">
+			<summary>
+				Obtem todos os Autores
+			</summary>
+			<returns>Objeto contendo autores.</returns>
+		</member>
+		<member name="M:WebApi.Controllers.MusicController.SaveMusic(Domain.Models.Entities.Music)">
+			<summary>
+				Cria uma nova musica
+			</summary>
+			<param name="music">Objeto Musica</param>
+			<returns>Objeto contendo dados de uma musica.</returns>
+		</member>
+		<member name="M:WebApi.Controllers.MusicController.EditMusic(Domain.Models.Entities.Music)">
+			<summary>
+				Alterar uma musica
+			</summary>
+			<param name="music">Objeto Musica</param>
+			<returns>Objeto contendo dados de uma musica.</returns>
+		</member>
+	</members>
+</doc>

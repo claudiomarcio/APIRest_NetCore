@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ED.Domain.Model.Models.Entities
+{
+    public class Author
+    {    
+        public int CodAuthor { get; set; }
+        public string Name { get; set; }
+        public List<Music> Musics { get; set; }
+        public Category Category { get; set; }
+        public int CodCategory { get; set; }
+    }
+}
