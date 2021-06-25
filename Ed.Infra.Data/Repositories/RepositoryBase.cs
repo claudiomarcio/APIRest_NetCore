@@ -1,5 +1,6 @@
 ﻿using ED.Domain.Data.Interfaces.Repositories.RepositoryBase;
 using ED.Infra.Data.EntityConfiguration;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,6 @@ namespace Ed.Infra.Data.Repositories
         private readonly ApplicationDbContext _contex;
         public RepositoryBase(ApplicationDbContext contex)
            => _contex = contex;    
-
-        public TEntity Add(TEntity obj)
-        {
-            _contex.Add(obj);
-            _contex.SaveChanges();
-            return obj;
-        }
 
         public async Task <TEntity> AddAsync(TEntity obj)
         {
@@ -35,37 +29,27 @@ namespace Ed.Infra.Data.Repositories
             return obj;
         }
 
-        public IEnumerable<TEntity> GetAll()
-            => _contex.Set<TEntity>().ToList();
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+            => await _contex.Set<TEntity>().ToListAsync();
 
-        public TEntity GetById(int id)
-             => _contex.Set<TEntity>().Find(id);
+        public async Task<TEntity> GetByIdAsync(int id)
+             => await _contex.Set<TEntity>().FindAsync(id);
 
-        public TEntity GetById(Guid id)
-            => _contex.Set<TEntity>().Find(id);
+        public async Task<TEntity> GetById(Guid id)
+            => await _contex.Set<TEntity>().FindAsync(id);
 
-        public void Remove(TEntity obj)
+        public async Task Remove(TEntity obj)
         {
             _contex.Remove(obj);
-            _contex.SaveChanges();
+            await _contex.SaveChangesAsync();
         }
 
-        public void RemoveRange(IEnumerable<TEntity> obj)
+        public async Task RemoveRange(IEnumerable<TEntity> obj)
         {
             _contex.RemoveRange(obj);
-            _contex.SaveChanges();
+            await _contex.SaveChangesAsync();
         }
-
-        //public void SaveChanges()
-        //    => _contex.SaveChanges();
-
-        public void Update(TEntity obj)
-        {
-            _contex.Set<TEntity>().Attach(obj);
-            _contex.SaveChanges();
-        }
-
-
+       
         public virtual Task UpdateAsync(TEntity obj)
         {
             _contex.Set<TEntity>().Attach(obj);
@@ -79,22 +63,17 @@ namespace Ed.Infra.Data.Repositories
             return Task.CompletedTask;
         }
 
-        //public virtual async Task AddAsync(TEntity entity)
-        //{
-        //    await _contex.AddAsync(entity).ConfigureAwait(false);
-        //}
-
         public virtual async Task AddCollectionAsync(IEnumerable<TEntity> entities)
         {
             await _contex.AddRangeAsync(entities).ConfigureAwait(false);
         }
 
-        public void UpdateRange(List<TEntity> list)
+        public async Task UpdateRange(List<TEntity> list)
         {
             try
             {
                 _contex.Set<TEntity>().AttachRange(list);
-                _contex.SaveChanges();
+                await _contex.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -103,6 +82,5 @@ namespace Ed.Infra.Data.Repositories
             }
             
         }
-
     }
 }

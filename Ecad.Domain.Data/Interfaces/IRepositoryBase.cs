@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ED.Domain.Data.Interfaces.Repositories.RepositoryBase
 {
     public interface IRepositoryBase<TEntity> where TEntity : class
     {
-        TEntity Add(TEntity obj);
-        TEntity GetById(int id);
-        TEntity GetById(Guid id);
-        IEnumerable<TEntity> GetAll();
-        void Update(TEntity obj);
-        void Remove(TEntity obj);
-        void RemoveRange(IEnumerable<TEntity> obj);
+        Task<TEntity> AddAsync(TEntity obj);
+        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> GetById(Guid id);
+        Task <IEnumerable<TEntity>> GetAllAsync();
+        Task Remove(TEntity obj);
+        Task RemoveRange(IEnumerable<TEntity> obj);
 
     }
 }

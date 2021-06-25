@@ -3,23 +3,19 @@ using System.Collections.Generic;
 using System;
 using ED.Domain.Model.Models.Entities;
 using ED.Domain.Data.Domain.Interfaces.Repository;
+using ED.Application.Interfaces;
+using System.Threading.Tasks;
 
 namespace webapi.Controllers
 {
     [Route("api/")]
     public class MusicController : Controller
     {
-        private readonly IMusicRepository _musicRepository;
-        private readonly IGenderRepository _genderRepository;
-        private readonly IAuthorRepository _authorRepository;
+        private readonly IEDAppService _appService;
 
-        public MusicController(IMusicRepository musicRepository,
-                               IGenderRepository genderRepository,
-                               IAuthorRepository authorRepository)
+        public MusicController(IEDAppService appService)
         {
-            _musicRepository = musicRepository;
-            _genderRepository = genderRepository;
-            _authorRepository = authorRepository;
+            _appService = appService;        
         }
         
         /// <summary>
@@ -27,21 +23,11 @@ namespace webapi.Controllers
         /// </summary>   
         /// <returns>Objeto contendo musicas.</returns>  
         [HttpGet("[controller]/v1/GetMusics")]
-        public object GetMusics()
+        public async Task<object> GetMusics()
         {
             try
-            {
-                var listMusics = new List<Music>();
-                foreach (var item in _musicRepository.GetAll())
-                {
-                    item.AuthorName = _authorRepository.GetById(item.CodAuthor).Name;
-                    item.GenderName = _genderRepository.GetById(item.CodGender).Name;
-                    item.Author = null;
-                    item.Gender = null;
-                    listMusics.Add(item);
-                }
-
-                return StatusCode(200, listMusics);
+            {                
+                return StatusCode(200, await _appService.GetMusicsAsync());
             }
             catch (Exception ex)
             {
@@ -54,11 +40,11 @@ namespace webapi.Controllers
         /// </summary>   
         /// <returns>Objeto contendo generos.</returns>  
         [HttpGet("[controller]/v1/GetGender")]
-        public object GetGenders()
+        public async Task<object> GetGenders()
         {
             try
             {
-                return StatusCode(200, _genderRepository.GetAll());
+                return StatusCode(200, await _appService.GetGendersAsync());
             }
             catch (Exception ex)
             {
@@ -72,11 +58,11 @@ namespace webapi.Controllers
         /// </summary>   
         /// <returns>Objeto contendo autores.</returns>  
         [HttpGet("[controller]/v1/GetAuthors")]
-        public object GetAuhtors()
+        public async Task<object> GetAuhtors()
         {
             try
             {
-                return StatusCode(200, _authorRepository.GetAll());
+                return StatusCode(200, _appService.GetAuthorsAsync());
             }
             catch (Exception ex)
             {
@@ -90,11 +76,11 @@ namespace webapi.Controllers
         /// <param name="music">Objeto Musica</param>
         /// <returns>Objeto contendo dados de uma musica.</returns>  
         [HttpPost("[controller]/v1/SaveMusic")]       
-        public object SaveMusic([FromBody] Music music)
+        public async Task<object> SaveMusic([FromBody] Music music)
         {
             try
             {         
-                return StatusCode(200, _musicRepository.Add(music));
+                return StatusCode(200, _appService.AddMusicAsync(music));
             }
             catch (Exception ex)
             {
@@ -108,11 +94,11 @@ namespace webapi.Controllers
         /// <param name="music">Objeto Musica</param>
         /// <returns>Objeto contendo dados de uma musica.</returns>  
         [HttpPut("[controller]/v1/EditMusic")]
-        public object EditMusic([FromBody] Music music)
+        public async Task<object> EditMusic([FromBody] Music music)
         {
             try
             {                                           
-                return StatusCode(200, _musicRepository.UpdateMusic(music));
+                return StatusCode(200, _appService.UpdateMusicAsync(music));
             }
             catch (Exception ex)
             {

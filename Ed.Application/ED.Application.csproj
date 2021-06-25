@@ -5,10 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Ecad.Domain.Data\ED.Domain.Data.csproj" />
-    <ProjectReference Include="..\Ecad.Domain.Model\ED.Domain.Model.csproj" />
-    <ProjectReference Include="..\Ed.Application\ED.Application.csproj" />
-    <ProjectReference Include="..\Ed.Infra.Data\ED.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>

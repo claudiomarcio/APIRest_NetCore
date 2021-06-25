@@ -9,6 +9,7 @@ using ED.CrossCutting.Ioc;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.EntityFrameworkCore;
 using ED.Infra.Data.EntityConfiguration;
+using ED.CrossCutting.Ioc.Resolvers;
 
 namespace ED.WebApi
 {
@@ -27,6 +28,7 @@ namespace ED.WebApi
             options.UseSqlite($@"Data Source={$@"{AppDomain.CurrentDomain.BaseDirectory}\ecad.db"}"));
             services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
             services.Resolvers();
+            services.ConfigureAppServices();
             services.AddMvc();
             services.AddCors();
            
