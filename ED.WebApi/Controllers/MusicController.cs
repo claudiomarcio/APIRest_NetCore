@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using ED.Domain.Model.Models.Entities;
-using ED.Domain.Data.Domain.Interfaces.Repository;
 using ED.Application.Interfaces;
 using System.Threading.Tasks;
 
